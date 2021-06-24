@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css') }}">
+    <script type="text/javascript">
+        var result = {{ result }};
+        function printResult()
+    {
+        document.getElementById('textarea').innerHTML = result;
+        {#x.value = {{ result }};#}
+    }
+    </script>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+   body{
+   	background-color: lightblue;
+   }
+   .p1{
+   	text-align: center;
+   	font-size: 32px;
+   	color: blue;
+   	font-family: 'Verdana', serif;
+   }
+   .column-layout{
+     padding: 5px 50px;
+   	margin:20px auto 0 auto;
+   	display: flex;
+   }
+   .main-column{
+   	font-family:'Lucida Console',serif;
+   	color: blue;
+   	font-size: 24px;
+   	flex: 2;
+   }
+   .content{
+   	background-color: #fff;
+   }
+   .side-bar{
+   	flex:1;
+
+   	margin:100px auto 0 auto;
+
+   }
+
+  .fileUpload input[type=file]{
+                display:none;
+                align:center;
+            }
+            .btn{
+                background-color:lightgrey;
+                color:#333;
+                border:1px solid grey;
+                border-radius:2px;
+                padding:1px 10px;
+                font-size:32px;
+                margin:100px;
+
+            }
+            #mybtn{
+            	background-color:lightgrey;
+                color:#333;
+                border:1px solid grey;
+                border-radius:2px;
+                padding:1px 10px;
+                font-size:32px;
+                margin:100px;
+            }
+</style>
+</head>
+<body>
+<h1>The De-Coders</h1>
+  <body>
+
+
+<div class="p1">
+	<h1>The DE-CODERS</h1>
+</div>
+<div class="column-layout">
+	<div class="main-column">
+		<div class="content"><p> Need to search any data from a PDF.Data present in the PDF is a combination of English,Telugu & Urdu languages.The font used for Telugi is Shreelpi  and for Urdu is Noori Nastaliq.Format of Data present in PDF will be in .pdf format and some data will be in image format.We need to search the data present in English,Telugu & Urdu languages which is present in Unicode as well as in image format.</p>
+		</div>
+
+	<div class="image">
+		<img src="pdfs.jfif" height="250px" width="250px">
+		<img src="image4.png" height="250px" width="250px">
+		<img src="image6.jfif" height="250px" width="280px">
+	</div>
+</div>
+	<div class="side-bar">
+  <label class="btn fileUpload btn-default">
+       choose file <input type="file" hidden="">
+</label>
+<br>
+<br>
+<br>
+<br>
+<!--<label class="btn fileUpload btn-default">
+       upload <input type="upload" hidden="">
+</label>-->
+<button id="myBtn">Upload</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..Some text in the Modal... </p>
+  </div>
+
+</div>
+
+
+	</div>
+
+	</div>
+    <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+    <strong>Pick an image or a pdf file to begin processing</strong><br><br>
+    <input id="file-picker" type="file" name="file" accept="image/*" multiple>
+    <div id="msg"></div>
+    <input onclick="printResult()" type="submit" value="Submit!" id="upload-button"><br><br>
+    <textarea rows="10" cols="100" id="textarea">{{ result }}</textarea>
+    </form>
+
+</body>
+
+<script>
+
+    $("#file-picker").change(function(){
+        var input = document.getElementById('file-picker');
+        for (var i=0; i<input.files.length; i++)
+        {
+            var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase();
+
+            if ((ext == 'jpg') || (ext == 'png') || (ext == 'pdf'))
+            {
+                $("#msg").text("File is supported!\nPress submit next..")
+            }
+            else
+            {
+                $("#msg").text("Files are NOT supported");
+                document.getElementById("file-picker").value ="";
+            }
+        }
+    } );
+</script>
+</html>
+
+
+
+
+<html>
+<head>
+
+<title>The DECODERS</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+   body{
+   	background-color: lightblue;
+   }
+   .p1{
+   	text-align: center;
+   	font-size: 32px;
+   	color: blue;
+   	font-family: 'Verdana', serif;
+   }
+   .column-layout{
+     padding: 5px 50px;
+   	margin:20px auto 0 auto;
+   	display: flex;
+   }
+   .main-column{
+   	font-family:'Lucida Console',serif;
+   	color: blue;
+   	font-size: 24px;
+   	flex: 2;
+   }
+   .content{
+   	background-color: #fff;
+   }
+   .side-bar{
+   	flex:1;
+
+   	margin:100px auto 0 auto;
+
+   }
+
+  .fileUpload input[type=file]{
+                display:none;
+                align:center;
+            }
+            .btn{
+                background-color:lightgrey;
+                color:#333;
+                border:1px solid grey;
+                border-radius:2px;
+                padding:1px 10px;
+                font-size:32px;
+                margin:100px;
+
+            }
+            #mybtn{
+            	background-color:lightgrey;
+                color:#333;
+                border:1px solid grey;
+                border-radius:2px;
+                padding:1px 10px;
+                font-size:32px;
+                margin:100px;
+            }
+</style>
+</head>
+<body>
+
+
+<div class="p1">
+	<h1>The DE-CODERS</h1>
+</div>
+<div class="column-layout">
+	<div class="main-column">
+		<div class="content"><p> Need to search any data from a PDF.Data present in the PDF is a combination of English,Telugu & Urdu languages.The font used for Telugi is Shreelpi  and for Urdu is Noori Nastaliq.Format of Data present in PDF will be in .pdf format and some data will be in image format.We need to search the data present in English,Telugu & Urdu languages which is present in Unicode as well as in image format.</p>
+		</div>
+
+	<div class="image">
+		<img src="pdfs.jfif" height="250px" width="250px">
+		<img src="image4.png" height="250px" width="250px">
+		<img src="image6.jfif" height="250px" width="280px">
+	</div>
+</div>
+	<div class="side-bar">
+  <label class="btn fileUpload btn-default">
+       choose file <input type="file" hidden="">
+</label>
+<br>
+<br>
+<br>
+<br>
+<!--<label class="btn fileUpload btn-default">
+       upload <input type="upload" hidden="">
+</label>-->
+<button id="myBtn">Upload</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..Some text in the Modal... </p>
+  </div>
+
+</div>
+
+
+	</div>
+
+	</div>
+
+
+	<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+	</body>
+</html>
